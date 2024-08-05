@@ -1,14 +1,24 @@
-const { createServer } = require('node:http');
+const express = require('express')
+const path = require('path')
 
-const hostname = '127.0.0.1';
-const port = 3000;
+// import express from 'express'
+const app = express()
+const port = 8080
 
-const server = createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World\ntest');
-});
+//config template engine
+// __dirname
+//app.set('views', path.join(__dirname, 'views'));
+app.set('views', './src/views/')
+app.set('view engine', 'ejs')
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+app.get('/hoidanit', (req, res) => {
+    res.render('sample.ejs')
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
