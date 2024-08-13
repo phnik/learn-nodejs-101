@@ -3,6 +3,15 @@ const pool = require("../config/database");
 
 const getHomepage = (req, res) => {
     //simple query
+    
+    return res.render('home.ejs')
+}
+
+const getHoiDanIt = (req, res) => {
+    res.render('sample.ejs')
+}
+
+const getForm = (req, res) =>{
     pool.query(
         'SELECT * FROM Users;',
         function (err, results, fields){
@@ -10,12 +19,7 @@ const getHomepage = (req, res) => {
             res.send(JSON.stringify(results));
         }
     );
-    
-}
-
-const getHoiDanIt = (req, res) => {
-    res.render('sample.ejs')
 }
 module.exports = {
-    getHomepage, getHoiDanIt
+    getHomepage, getHoiDanIt, getForm
 }
