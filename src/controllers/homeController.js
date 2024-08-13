@@ -1,5 +1,16 @@
+const pool = require("../config/database");
+
+
 const getHomepage = (req, res) => {
-    res.send('Hello World with nodemon!');
+    //simple query
+    pool.query(
+        'SELECT * FROM Users;',
+        function (err, results, fields){
+            console.log(">> results =\n", results);
+            res.send(JSON.stringify(results));
+        }
+    );
+    
 }
 
 const getHoiDanIt = (req, res) => {
