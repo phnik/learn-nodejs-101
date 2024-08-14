@@ -8,8 +8,11 @@ const app = express()
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME
 
+app.use(express.json()); // Used to parse JSON bodies
+app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodies
 configViewEngine(app);
 app.use('/', webRoutes);
+
 
 app.listen(port, hostname, () => {
     console.log(`Example app listening on port ${port}`)

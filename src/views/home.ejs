@@ -16,26 +16,24 @@
         <a href="#about">About</a>
     </div>
 
-    <div class="form" action="/testform" method="POST">
-        <form action="/testform" method="post">
-            <fieldset>
-                <legend>Information</legend>
-                <div class="input-group">
-                    <label for="">Email: </label>
-                    <input type="text" name="email"><br>
-                </div>
-                <div class="input-group">
-                    <label for="">Name: </label>
-                    <input type="text" name="name"><br>
-                </div>
-                <div class="input-group">
-                    <label for="">City: </label>
-                    <input type="text" name="city"><br>
-                </div>
-                <input type="submit" name="submit" id="submit">
-            </fieldset>
-        </form>
-    </div>
+    <form action="/testform" method="POST">
+        <fieldset>
+            <legend>Information</legend>
+            <div class="input-group">
+                <label for="email">Email: </label>
+                <input type="text" name="email" id="email"><br>
+            </div>
+            <div class="input-group">
+                <label for="myName">Name: </label>
+                <input type="text" name="name" id="myName"><br>
+            </div>
+            <div class="input-group">
+                <label for="city">City: </label>
+                <input type="text" name="city" id="city"><br>
+            </div>
+            <input type="submit" id="submit">
+        </fieldset>
+    </form>
 </body>
 
 </html>

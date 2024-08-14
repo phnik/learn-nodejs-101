@@ -48,5 +48,6 @@
 }
 
 #submit {
-  margin-left: 10px;
+  display: block;
+  margin: 0 auto;
 }
