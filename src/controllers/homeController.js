@@ -1,6 +1,7 @@
 const pool = require("../config/database");
 const connection = require("../config/old");
-const { getAllUsers } = require('../services/CRUDService')
+// const { unsubscribe } = require("../routes/web");
+const { getAllUsers, getUserById, updateUserById } = require('../services/CRUDService')
 const getHomepage = async (req, res) => {
     //simple query
     // getAllUsers(req, res);
@@ -13,15 +14,6 @@ const getHoiDanIt = (req, res) => {
     res.render('sample.ejs')
 }
 
-const getForm = (req, res) => {
-    pool.query(
-        'SELECT * FROM Users;',
-        function (err, results, fields) {
-            console.log(">> results =\n", results);
-            res.send(JSON.stringify(results));
-        }
-    );
-}
 
 const createUser = (req, res) => {
     console.log(req.body);
@@ -41,11 +33,33 @@ const getCreateUser = (req, res) => {
     res.render('create.ejs')
 }
 
-// const getAllUsers = async (req, res) => {
-//     const [results, fields] = await pool.query('select * from Users;');
-//     console.log("check results:", results);
-//     // console.log("check fields:", fields);
-// }
+const getUpdatePage = async (req, res) => {
+
+    const userId = req.params.id;
+    let user = await getUserById(userId);
+    console.log(user);
+    res.render('update.ejs', { userEdit: user });
+}
+
+const postUpdateUser = async (req, res) => {
+    console.log("check req body:", req.body);
+    let { id, email, myName, city } = req.body;
+    console.log('test: ', id, email, myName, city);
+    let results = await updateUserById(id, email, myName, city);
+    // connection.query(
+    //     `INSERT INTO Users (email, name, city) VALUES(?, ?, ?)`,
+    //     [email, myName, city],
+    //     (err, results) => {
+    //         console.log(results);
+    //     }
+    // )
+    console.log('Updated User:', results);
+    res.redirect('/');
+}
+
+const postDeleteUser = (req, res) => {
+    res.send('Delete User!');
+}
 module.exports = {
-    getHomepage, getHoiDanIt, getForm, createUser, getCreateUser, getAllUsers
+    getHomepage, getHoiDanIt, createUser, getCreateUser, getUpdatePage, postUpdateUser, postDeleteUser
 }
