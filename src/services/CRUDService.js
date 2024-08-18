@@ -1,11 +1,13 @@
 const pool = require("../config/database");
 
+const getCreateUserDB = async (email, userName, city) => {
+    let [results, fields] = await pool.query('INSERT INTO Users (email, name, city) VALUES(?, ?, ?)', [email, myName, city]);
+    return results;
+}
 const getAllUsers = async () => {
     let [results, fields] = await pool.query('SELECT * FROM Users');
     return results;
 }
-
-
 
 const getUserById = async (userId) => {
     let [results, fields] = await pool.query('SELECT * FROM Users WHERE id = ?', [userId]);
@@ -18,6 +20,11 @@ const updateUserById = async (userId, email, userName, city) => {
     return results;
 }
 
+const deleteUserById = async (userId) => {
+    let [results, fields] = await pool.query('DELETE FROM Users WHERE id = ?', [userId]);
+    return results;
+}
+
 module.exports = {
-    getAllUsers, getUserById, updateUserById
+    getCreateUserDB, getAllUsers, getUserById, updateUserById, deleteUserById
 }

@@ -55,3 +55,7 @@
 .d-none {
   display: none;
 }
+
+.delete {
+  display: inline-block;
+}

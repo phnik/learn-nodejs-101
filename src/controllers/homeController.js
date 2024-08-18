@@ -1,12 +1,9 @@
 const pool = require("../config/database");
 const connection = require("../config/old");
 // const { unsubscribe } = require("../routes/web");
-const { getAllUsers, getUserById, updateUserById } = require('../services/CRUDService')
+const { getCreateUser, getAllUsers, getUserById, updateUserById, deleteUserById } = require('../services/CRUDService')
 const getHomepage = async (req, res) => {
-    //simple query
-    // getAllUsers(req, res);
     let results = await getAllUsers();
-
     return res.render('home.ejs', { listUsers: results });
 }
 
@@ -18,15 +15,8 @@ const getHoiDanIt = (req, res) => {
 const createUser = (req, res) => {
     console.log(req.body);
     let { email, myName, city } = req.body;
-    console.log('test: ', email, myName, city);
-    connection.query(
-        `INSERT INTO Users (email, name, city) VALUES(?, ?, ?)`,
-        [email, myName, city],
-        (err, results) => {
-            console.log(results);
-        }
-    )
-    res.send('create a new user!')
+    getCreateUserDB(email, myName, city);
+    res.redirect('/');
 }
 
 const getCreateUser = (req, res) => {
@@ -46,20 +36,21 @@ const postUpdateUser = async (req, res) => {
     let { id, email, myName, city } = req.body;
     console.log('test: ', id, email, myName, city);
     let results = await updateUserById(id, email, myName, city);
-    // connection.query(
-    //     `INSERT INTO Users (email, name, city) VALUES(?, ?, ?)`,
-    //     [email, myName, city],
-    //     (err, results) => {
-    //         console.log(results);
-    //     }
-    // )
     console.log('Updated User:', results);
     res.redirect('/');
 }
 
-const postDeleteUser = (req, res) => {
-    res.send('Delete User!');
+const postDeleteUser = async (req, res) => {
+    const userId = req.params.id;
+    let user = await getUserById(userId);
+    res.render('delete.ejs', { user: user })
+}
+
+const postHandleRemoveUser = async (req, res) => {
+    let results = await deleteUserById(req.body.id);
+    console.log('check results delete:', results);
+    res.redirect('/');
 }
 module.exports = {
-    getHomepage, getHoiDanIt, createUser, getCreateUser, getUpdatePage, postUpdateUser, postDeleteUser
+    getHomepage, getHoiDanIt, createUser, getCreateUser, getUpdatePage, postUpdateUser, postDeleteUser, postHandleRemoveUser
 }

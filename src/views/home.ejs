@@ -95,26 +95,6 @@
                         <th>City</th>
                         <th>Action</th>
                     </tr>
-                    <!-- <% for(let user of listUsers){ %>
-                        <tr>
-                            <td>
-                                <%= user.id %>
-                            </td>
-                            <td>
-                                <%= user.email %>
-                            </td>
-                            <td>
-                                <%= user.myName %>
-                            </td>
-                            <td>
-                                <%= user.city %>
-                            </td>
-                            <td>
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </td>
-                        </tr>
-                        <% } %> -->
                     <% listUsers.forEach(function(user){ %>
                         <tr>
                             <td>
@@ -131,10 +111,11 @@
                             </td>
                             <td>
                                 <button><a href="/update/<%= user.id %>">Edit</a></button>
-                                <form action="/delete-user/<%= user.id %>" method="post">
-
-                                </form>
-                                <button>Delete</button>
+                                <div class="delete">
+                                    <form action="/delete-user/<%= user.id %>" method="post">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         <% }) %>

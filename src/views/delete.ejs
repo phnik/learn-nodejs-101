@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <%= JSON.stringify(userEdit) %>
+    <%= JSON.stringify(user) %>
         <div class="topnav">
             <a href="/">Home</a>
             <a href="/hoidanit">hoidanit</a>
@@ -17,26 +17,19 @@
             <a href="#about">About</a>
         </div>
 
-        <form action="/update-user" method="POST">
+        <form action="/delete-user" method="POST">
             <fieldset>
-                <legend>Update a user</legend>
+                <legend>Delete a user</legend>
                 <div class="input-group d-none">
                     <label for="Id">Id: </label>
-                    <input type="text" name="id" id="Id" value="<%= userEdit.id%>"><br>
+                    <input type="text" name="id" id="Id" value="<%= user.id%>"><br>
                 </div>
                 <div class="input-group">
-                    <label for="email">Email: </label>
-                    <input type="text" name="email" id="email" value="<%= userEdit.email%>"><br>
+                    <label for="email">Are you sure to delete this user with this Email: </label>
+                    <input type="text" name="email" id="email" value="<%= user.email%>"><br>
                 </div>
-                <div class="input-group">
-                    <label for="myName">Name: </label>
-                    <input type="text" name="myName" id="myName" value="<%= userEdit.name%>"><br>
-                </div>
-                <div class="input-group">
-                    <label for="city">City: </label>
-                    <input type="text" name="city" id="city" value="<%= userEdit.city%>"><br>
-                </div>
-                <input type="submit" id="submit">
+
+                <input type="submit" id="submit" value="Confirm">
             </fieldset>
         </form>
 </body>
